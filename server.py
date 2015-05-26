@@ -15,10 +15,10 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 #            Create the API for getting tweets
 #***************************************************************************************
 
-CONSUMER_KEY = ''
-CONSUMER_SECRET = ''
-ACCESS_TOKEN_KEY = ""
-ACCESS_TOKEN_SECRET = ""
+CONSUMER_KEY = '' # consumer key for twitter api
+CONSUMER_SECRET = '' # consumer secret for twitter api
+ACCESS_TOKEN_KEY = "" # ccess token key for twitter api
+ACCESS_TOKEN_SECRET = "" # access token secret for twitter api
 
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET)
