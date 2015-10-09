@@ -77,7 +77,7 @@ streaming_api = tweepy.streaming.Stream(auth, CustomStreamListener(), timeout = 
 #****************************************************************************************************************
 
 def get_sentiment_lib():
-    sent_file = open("sentiment.txt")
+    sent_file = open("res/sentiment.txt")
     scores = {} # initialize an empty dictionary
     for line in sent_file:
             term, score  = line.split("\t")  # The file is tab-delimited. "\t" means "tab character"
@@ -114,7 +114,7 @@ sent_lib = get_sentiment_lib()
 class MainPage(webapp2.RequestHandler):   
 
     def get(self):
-        template = JINJA_ENVIRONMENT.get_template('main.html')
+        template = JINJA_ENVIRONMENT.get_template('index.html')
         template_values = {
         }
         outstr = template.render(template_values)

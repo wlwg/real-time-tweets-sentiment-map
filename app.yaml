@@ -5,8 +5,14 @@ api_version: 1
 threadsafe: true
 
 handlers:
+- url: /js
+  static_dir: js
+
+- url: /style
+  static_dir: style
+
 - url: /.*
-  script: twittergoing.application
+  script: server.application
 
 libraries:
 - name: webapp2

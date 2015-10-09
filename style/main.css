@@ -1,0 +1,16 @@
+html {
+	height: 100%; 
+	width: 100%; 
+	text-align:center;
+}
+
+body {
+	width:98%; 
+	height:98%; 
+	margin:auto;
+}
+
+img {
+	border:none; 
+	max-width: none;
+}
