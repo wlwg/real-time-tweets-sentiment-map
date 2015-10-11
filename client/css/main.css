@@ -1,0 +1,16 @@
+.container { 
+	width: auto;
+	max-width: 1400px; 
+}
+
+div#map-canvas{
+	min-height: 690px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 99%;
+  height: 90px;
+  background-color: #f5f5f5;
+}

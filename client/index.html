@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Tweets on Google Map</title>
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/main.css">
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center text-muted">
+					<h1>Tweets on Google Map</h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<hr>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2 text-left">
+					<div class="row">
+						<div class="col-xs-12">
+							<img src="res/img/marker-green.png">
+							<h5>Your Location</h5>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<img src="res/img/marker-red.png">
+							<h5>Positive Sentiment</h5>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<img src="res/img/marker-yellow.png">
+							<h5>Neutral Sentiment</h5>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<img src="res/img/marker-blue.png">
+							<h5>Negative Sentiment</h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8 center">
+					<div id="map-canvas"></div>
+				</div>
+				<div class="col-md-2">
+					<h4>Twitter Trends</h4>
+				</div>
+			</div>
+		</div>
+
+		<footer class="footer">
+	      	<div class="container text-muted text-center">
+	        	<h5>Copyright 2015 © Weiliang Wang</h5>
+	        	<h5>wangweiliang61@gmail.com</h5>
+				<a href="https://github.com/williamwang61/Tweets_On_Google_Map">github.com/williamwang61/Tweets_On_Google_Map</a>
+	      	</div>
+	    </footer>
+
+		<script type="text/javascript" src="lib/jquery-2.1.4.min.js" async></script>
+		<script type="text/javascript" src="lib/angular.min.js" async></script>
+		<script type="text/javascript" async defer>
+		function InitizalizeGoogleMap() {
+			var mapOptions = {
+				center: {lat: 45, lng: -100},
+				zoom: 4
+			}
+			map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+		}
+    	</script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNc0dmlvo53X4djeek5mOLB3Q0ETqCg7w&sensor=true&callback=InitizalizeGoogleMap" async defer></script>
+	</body>
+</html>
