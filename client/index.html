@@ -19,7 +19,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 text-center text-muted">
-					<h1>Tweets Sentiment Map</h1>
+					<h1>Real-time Tweets Sentiment Map</h1>
 				</div>
 			</div>
 			<div class="row">
@@ -48,8 +48,14 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-8 center">
-					<div id="map-canvas"></div>
+				<div class="col-md-8">
+					<div class="row">
+							<input type="text" placeholder="keyword" ng-model="keyword"></imput>
+							<input type="submit" value="Filter" ng-click="FilterBtnClick()"></input>
+					</div>
+					<div class="row text-center" id="map-container">
+						<div id="map-canvas"></div>
+					</div>
 				</div>
 				<div class="col-md-2">
 					<h4>Twitter Trends</h4>

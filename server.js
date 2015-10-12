@@ -111,7 +111,7 @@ var Application = function(){
 
 	self.Start = function(){
 		self.server.listen(self.port, self.ip, function() {
-            console.log("Listening on " + self.ip + ", server_port " + self.port);
+            console.log("Listening on " + self.ip + ":" + self.port);
         });
 	}
 }
