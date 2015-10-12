@@ -6,9 +6,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Tweets on Google Map</title>
 		<link rel="stylesheet" href="css/bootstrap.css">
-		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/index.css">
+
+		<script type="text/javascript" src="lib/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNc0dmlvo53X4djeek5mOLB3Q0ETqCg7w">
+		</script>
+		<script type="text/javascript" src="lib/angular.min.js"></script>
+		<script type="text/javascript" src="http://localhost:3000/socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="controller/app.js"></script>
 	</head>
-	<body>
+	<body ng-app="app">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 text-center text-muted">
@@ -20,17 +27,11 @@
 					<hr>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-2 text-left">
+			<div class="row" ng-controller="MapController">
+				<div class="col-md-2 text-center">
 					<div class="row">
 						<div class="col-xs-12">
 							<img src="res/img/marker-green.png">
-							<h5>Your Location</h5>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-xs-12">
-							<img src="res/img/marker-red.png">
 							<h5>Positive Sentiment</h5>
 						</div>
 					</div>
@@ -42,7 +43,7 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12">
-							<img src="res/img/marker-blue.png">
+							<img src="res/img/marker-red.png">
 							<h5>Negative Sentiment</h5>
 						</div>
 					</div>
@@ -52,6 +53,11 @@
 				</div>
 				<div class="col-md-2">
 					<h4>Twitter Trends</h4>
+					<div class="row" ng-repeat="trend in trends">
+						<div class="col-xs-12">
+							<a href="{{trend.url}}" target="_blank">{{trend.name}}</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -60,21 +66,8 @@
 	      	<div class="container text-muted text-center">
 	        	<h5>Copyright 2015 © Weiliang Wang</h5>
 	        	<h5>wangweiliang61@gmail.com</h5>
-				<a href="https://github.com/williamwang61/Tweets_On_Google_Map">github.com/williamwang61/Tweets_On_Google_Map</a>
+				<a href="https://github.com/williamwang61/Tweets_On_Google_Map" target="_blank">github.com/williamwang61/Tweets_On_Google_Map</a>
 	      	</div>
 	    </footer>
-
-		<script type="text/javascript" src="lib/jquery-2.1.4.min.js" async></script>
-		<script type="text/javascript" src="lib/angular.min.js" async></script>
-		<script type="text/javascript" async defer>
-		function InitizalizeGoogleMap() {
-			var mapOptions = {
-				center: {lat: 45, lng: -100},
-				zoom: 4
-			}
-			map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-		}
-    	</script>
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNc0dmlvo53X4djeek5mOLB3Q0ETqCg7w&sensor=true&callback=InitizalizeGoogleMap" async defer></script>
 	</body>
 </html>

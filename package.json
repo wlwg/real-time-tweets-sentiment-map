@@ -9,5 +9,9 @@
   "author": "Weiliang(Will) Wang",
   "license": "ISC",
   "dependencies": {
+    "express": "*",
+    "twitter": "*",
+    "socket.io": "*",
+    "sentiment": "*"
   }
 }
