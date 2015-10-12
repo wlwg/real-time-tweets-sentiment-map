@@ -16,6 +16,7 @@ var TwitterStreamService = function(server){
 				access_token_secret: ''
 			});
 	self.twitter_stream = null;
+	self.twitter_search = null;
 
 	self.SetupSocketCallback = function(){
 		self.io.on('connection', function (socket) {
@@ -36,10 +37,10 @@ var TwitterStreamService = function(server){
 		if(self.twitter_stream === null){
 	      	self.twitter_stream = self.twitter_api.stream(
 	      		'statuses/filter', 
-	      		{'locations':'-180,-90,180,90'}, 
+	      		{'locations':'-180,-90,180,90', 'language':'en'}, 
 	      		function(stream) {
 		          	stream.on('data', function(tweet) {
-		              	if (tweet.coordinates && tweet.coordinates !== null && tweet.lang === 'en'){
+		              	if (tweet.coordinates && tweet.coordinates !== null){
 		              		tweet.sentiment = sentiment(tweet.text);
 		                  	socket.broadcast.emit("new-tweet", tweet);
 		                  	socket.emit('new-tweet', tweet);
@@ -76,7 +77,8 @@ var TwitterStreamService = function(server){
 	}
 
 	self.SetupTwitterTrendsCallback = function(socket){
-		self.twitter_api.get(
+		if(self.twitter_search === null){
+			self.twitter_api.get(
 			'trends/place',
 			{'id' : 1},
 			function(error, trends, response){
@@ -86,8 +88,8 @@ var TwitterStreamService = function(server){
 				}
 				socket.broadcast.emit("new-trends", trends);
 		        socket.emit('new-trends', trends[0].trends);
-			}
-		);
+			});
+		}
 	}
 
 	self.SetupSocketCallback();

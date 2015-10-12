@@ -32,8 +32,8 @@ module.factory('GoogleMap', function(){
 });
 
 module.controller('MapController', function($scope, GoogleMap, socket){
-	
-	$scope.trends = [];
+
+	if(!$scope.trends) $scope.trends = [];
 
 	socket.on('connected', function(){
 		socket.emit('start-streaming');
