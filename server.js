@@ -10,10 +10,10 @@ var TwitterStreamService = function(server){
 
 	self.twitter_api = 
 			new twitter({
-				consumer_key: '',
-				consumer_secret: '',
-				access_token_key: '',
-				access_token_secret: ''
+				consumer_key: process.env.OPENSHIFT_APP_TWITTER_CONSUMER_KEY,
+				consumer_secret: process.env.OPENSHIFT_APP_TWITTER_CONSUMER_SECRET,
+				access_token_key: process.env.OPENSHIFT_APP_TWITTER_ACCESS_TOKEN_KEY,
+				access_token_secret: process.env.OPENSHIFT_APP_TWITTER_ACCESS_TOKEN_SECRET
 			});
 	self.twitter_stream = null;
 	self.twitter_search = null;
@@ -99,6 +99,9 @@ var Application = function(){
 	var self = this;
 
 	self.Initialize = function(){
+		self.ip        = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
+        self.port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+
 		self.app = express();
 		self.app.use(express.static(__dirname + '/client'));
 
@@ -107,7 +110,9 @@ var Application = function(){
 	}
 
 	self.Start = function(){
-		self.server.listen(3000);
+		self.server.listen(self.port, self.ip, function() {
+            console.log("Listening on " + self.ip + ", server_port " + self.port);
+        });
 	}
 }
 

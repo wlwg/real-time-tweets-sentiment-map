@@ -1,4 +1,6 @@
-Tweets on Google Map
+Tweets Sentiment Map
 ====================
 
-This is a web application based on Twitter API and Google Map API, which is basically used for searching for tweets and showing them on Google Map, as well as obtaining the trending twitter topics in your location. The shortcoming is that due to the limitation of the usage of Twitter API, it crashes when there are too frequent requests.
+This is a single-page-application that analyzes the sentiment of real-time tweets and displays the result on Google map. It also shows the top trending twitter topics.
+
+Please visit 
