@@ -1,7 +1,7 @@
 var module = angular.module('app', []);
 
 module.factory('socket', function($rootScope){
-    var socket = io.connect('http://tsm-luckynine.rhcloud.com');
+    var socket = io.connect(window.location.href);
   	return {
         on: function (eventName, callback) {
             socket.on(eventName, function () {
