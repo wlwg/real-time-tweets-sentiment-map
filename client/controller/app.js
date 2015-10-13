@@ -74,7 +74,7 @@ module.controller('MapController', function($scope, GoogleMap, socket){
 	      	marker.setMap(GoogleMap);
 	      	markers.push(marker);
 
-	      	var info = '<div class="row tweet-info-window">'
+	      	var info = '<div class="row text-center tweet-info-window">'
 	      				+	'<div class="col-sm-2 text-center">' 
 	      				+		'<img class="img-responsive" src=' + tweet.user.profile_image_url + '></img>'
 	      				+	'</div>'
