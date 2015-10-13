@@ -5,13 +5,14 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Tweets Sentiment Map</title>
-		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/index.css">
 
 		<script type="text/javascript" src="lib/jquery-2.1.4.min.js"></script>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNc0dmlvo53X4djeek5mOLB3Q0ETqCg7w">
 		</script>
-		<script type="text/javascript" src="lib/angular.min.js"></script>
+		<script type="text/javascript" src="lib/angular-1.4.7.min.js"></script>
+		<script type="text/javascript" src="lib/angular-animate-1.4.7.min.js"></script>
 		<script type="text/javascript" src="lib/socket.io.js"></script>
 		<script type="text/javascript" src="controller/app.js"></script>
 	</head>
@@ -50,8 +51,13 @@
 				</div>
 				<div class="col-md-8">
 					<div class="row">
-							<input type="text" placeholder="keyword" ng-model="keyword"></imput>
-							<input type="submit" value="Filter" ng-click="FilterBtnClick()"></input>
+						<div class="col-md-4 text-left input-group"> 
+							<input class="form-control" type="text" placeholder="keyword" ng-model="keyword"/>
+							<span class="input-group-btn">
+								<button class="btn" type="submit" ng-click="FilterBtnClick()">Filter
+								</button>
+							</span>
+						</div>
 					</div>
 					<div class="row text-center" id="map-container">
 						<div id="map-canvas"></div>
@@ -59,8 +65,8 @@
 				</div>
 				<div class="col-md-2">
 					<h4>Twitter Trends</h4>
-					<div class="row" ng-repeat="trend in trends">
-						<div class="col-xs-12">
+					<div class="row">
+						<div class="col-xs-12 animate" ng-repeat="trend in trends">
 							<a href="{{trend.url}}" target="_blank">{{trend.name}}</a>
 						</div>
 					</div>
