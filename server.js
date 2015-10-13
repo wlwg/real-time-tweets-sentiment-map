@@ -10,10 +10,10 @@ var TwitterStreamService = function(server){
 
 	self.twitter_api = 
 			new twitter({
-				consumer_key: process.env.OPENSHIFT_APP_TWITTER_CONSUMER_KEY,
-				consumer_secret: process.env.OPENSHIFT_APP_TWITTER_CONSUMER_SECRET,
-				access_token_key: process.env.OPENSHIFT_APP_TWITTER_ACCESS_TOKEN_KEY,
-				access_token_secret: process.env.OPENSHIFT_APP_TWITTER_ACCESS_TOKEN_SECRET
+				consumer_key: process.env.OPENSHIFT_APP_TWITTER_CONSUMER_KEY || 'j0KmopoPBnOA3N4oAPPwMw',
+				consumer_secret: process.env.OPENSHIFT_APP_TWITTER_CONSUMER_SECRET || '4wyzFfbVSvyNHMzCQd9tg9zMfKbcu9LIGPNhvgur94',
+				access_token_key: process.env.OPENSHIFT_APP_TWITTER_ACCESS_TOKEN_KEY || '333238595-25XjrYKNcVe20LsRIv7KzPeNxrFPeYpC4NbJNVwl',
+				access_token_secret: process.env.OPENSHIFT_APP_TWITTER_ACCESS_TOKEN_SECRET || 'OM3GCUWAhd37DSghoVVyGh9ON8ZrUIz7eM4IsMIHNeE'
 			});
 	self.twitter_stream = null;
 	self.twitter_search = null;
@@ -100,7 +100,7 @@ var Application = function(){
 
 	self.Initialize = function(){
 		self.ip        = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
-        self.port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+        self.port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
 		self.app = express();
 		self.app.use(express.static(__dirname + '/client'));
