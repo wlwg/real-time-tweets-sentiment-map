@@ -7,13 +7,14 @@ var sentiment = require('sentiment');
 var TwitterStreamService = function(server){
 	var self = this;
 	self.io = socketio(server);
+	self.clientCount = 0;
 
 	self.twitter_api = 
 			new twitter({
-				consumer_key: process.env.OPENSHIFT_APP_TWITTER_CONSUMER_KEY || 'j0KmopoPBnOA3N4oAPPwMw',
-				consumer_secret: process.env.OPENSHIFT_APP_TWITTER_CONSUMER_SECRET || '4wyzFfbVSvyNHMzCQd9tg9zMfKbcu9LIGPNhvgur94',
-				access_token_key: process.env.OPENSHIFT_APP_TWITTER_ACCESS_TOKEN_KEY || '333238595-25XjrYKNcVe20LsRIv7KzPeNxrFPeYpC4NbJNVwl',
-				access_token_secret: process.env.OPENSHIFT_APP_TWITTER_ACCESS_TOKEN_SECRET || 'OM3GCUWAhd37DSghoVVyGh9ON8ZrUIz7eM4IsMIHNeE'
+				consumer_key: process.env.OPENSHIFT_APP_TWITTER_CONSUMER_KEY,
+				consumer_secret: process.env.OPENSHIFT_APP_TWITTER_CONSUMER_SECRET,
+				access_token_key: process.env.OPENSHIFT_APP_TWITTER_ACCESS_TOKEN_KEY,
+				access_token_secret: process.env.OPENSHIFT_APP_TWITTER_ACCESS_TOKEN_SECRET
 			});
 	self.twitter_stream = null;
 	self.twitter_search = null;
@@ -21,6 +22,8 @@ var TwitterStreamService = function(server){
 	self.SetupSocketCallback = function(){
 		self.io.on('connection', function (socket) {
 			console.log('A client connected');
+			self.clientCount ++;
+
 		  	socket.on('start-streaming', function() {
 		  		console.log('Start streaming');
 			    self.SetupTwitterStreamCallback(socket);
@@ -29,6 +32,10 @@ var TwitterStreamService = function(server){
 		  		console.log('Retrieving trends');
 		  		self.SetupTwitterTrendsCallback(socket);
 		  	});
+		  	socket.on('disconnect', function() {
+				console.log('A client disconnected');
+				self.clientCount --;
+			});
 		    socket.emit("connected");
 		});
 	}
@@ -100,7 +107,7 @@ var Application = function(){
 
 	self.Initialize = function(){
 		self.ip        = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
-        self.port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+        self.port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
 		self.app = express();
 		self.app.use(express.static(__dirname + '/client'));
