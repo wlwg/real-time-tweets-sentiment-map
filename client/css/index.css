@@ -1,3 +1,19 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 90px;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 99%;
+	height: 90px;
+	background-color: #f5f5f5;
+}
 .container { 
 	width: auto;
 	max-width: 1400px; 
@@ -14,14 +30,6 @@ div#map-canvas{
 .tweet-info-window{
  	background-color: #f5f5f5;
     width: 99%;
-}
-
-.footer {
-	position: absolute;
-	bottom: 0;
-	width: 99%;
-	height: 90px;
-	background-color: #f5f5f5;
 }
 
 .animate.ng-enter, 
