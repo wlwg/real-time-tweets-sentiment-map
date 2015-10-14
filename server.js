@@ -9,6 +9,11 @@ var TwitterStreamService = function(server){
 	self.io = socketio(server);
 	self.clientCount = 0;
 
+	self.twitter_stream = null;
+	self.twitter_trends = {
+		'created_at': null,
+		'trends': null
+	};
 	self.twitter_api = 
 			new twitter({
 				consumer_key: process.env.OPENSHIFT_APP_TWITTER_CONSUMER_KEY,
@@ -16,7 +21,6 @@ var TwitterStreamService = function(server){
 				access_token: process.env.OPENSHIFT_APP_TWITTER_ACCESS_TOKEN,
 				access_token_secret: process.env.OPENSHIFT_APP_TWITTER_ACCESS_TOKEN_SECRET
 			});
-	self.twitter_stream = null;
 
 	self.SetupSocketCallback = function(){
 		self.io.on('connection', function (socket) {
@@ -90,19 +94,30 @@ var TwitterStreamService = function(server){
 	}
 
 	self.GetTwitterTrends = function(socket){
-		self.twitter_api.get(
-			'trends/place',
-			{'id' : 1},
-			function(error, trends, response){
-				if(error){
-					console.log(new Date() + ' - Error when retrieving twitter trends: ' + error);
-					throw error;
-				}
-				console.log(new Date() + ' - Received twitter trends.');
-				socket.broadcast.emit("new-trends", trends);
-		        socket.emit('new-trends', trends[0].trends);
-			});
-		console.log(new Date() + ' - Retrieving twitter trends.');
+		if(self.twitter_trends.trends === null || (new Date() - self.twitter_trends.created_at) > 60000){
+			console.log(new Date() + ' - Retrieving twitter trends.');
+			self.twitter_api.get(
+				'trends/place',
+				{'id' : 1},
+				function(error, trends, response){
+					if(error){
+						console.log(new Date() + ' - Error when retrieving twitter trends: ' + error);
+						throw error;
+					}
+					console.log(new Date() + ' - Received twitter trends.');
+
+					self.twitter_trends.created_at = new Date();
+					self.twitter_trends.trends = trends[0].trends;
+					console.log(new Date() + ' - Updated twitter trends cache.');
+
+					socket.broadcast.emit("new-trends", self.twitter_trends.trends);
+			        socket.emit('new-trends', self.twitter_trends.trends);
+				});
+		}
+		else{
+			socket.broadcast.emit("new-trends", self.twitter_trends.trends);
+			socket.emit('new-trends', self.twitter_trends.trends);
+		}
 	}
 
 	self.SetupSocketCallback();
