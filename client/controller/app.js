@@ -36,15 +36,22 @@ module.controller('MapController', function($scope, GoogleMap, socket){
 	var keyword = null;
 	var markers = [];
 	$scope.keyword = null;
+	$scope.stopBtnValue = 'Stop';
 	$scope.trends = [];
 
-	$scope.FilterBtnClick = function(){
+	$scope.RestartBtnClick = function(){
 		for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
         }
         markers = [];
-
 		keyword = $scope.keyword.trim();
+	}
+
+	$scope.StopBtnClick = function(){
+		if($scope.stopBtnValue === 'Stop')
+			$scope.stopBtnValue = 'Continue';
+		else
+			$scope.stopBtnValue = 'Stop';
 	}
 
 	socket.on('connected', function(){
@@ -52,8 +59,10 @@ module.controller('MapController', function($scope, GoogleMap, socket){
 		socket.emit('get-trends');
 	});
 	socket.on('new-tweet', function(tweet){
-		if(!keyword || keyword.length === 0 
-			|| tweet.text.toLowerCase().indexOf(keyword.toLowerCase()) > -1){
+		if($scope.stopBtnValue === 'Stop' &&
+			(!keyword || keyword.length === 0 
+				|| tweet.text.toLowerCase().indexOf(keyword.toLowerCase()) > -1))
+		{
 			var icon = null;
 			if(tweet.sentiment.score < 0)
 				icon = '../res/img/marker-red.png';
@@ -81,10 +90,10 @@ module.controller('MapController', function($scope, GoogleMap, socket){
 	      				+	'<div class="col-sm-10 text-left">' 
 	      				+		'<p>' + '@' + tweet.user.name + '</p>'
 	      				+ 		'<p><strong>' + tweet.text + '</strong></p>'
-	      				+ 		'<p>' + tweet.created_at + '<br>' 
-	      				+ 		tweet.place.name + ', ' + tweet.place.country + '</p>'
-	      				+	'</div>'
-	      				+'</div>';
+	      				+ 		'<p>' + tweet.created_at + '<br>';
+	      	if(tweet.place.name) info += tweet.place.name + ', ';
+	      	info += tweet.place.country + '</p></div></div>';
+
 	      	var infowindow = new google.maps.InfoWindow({
 	        	  content: info,
 	        	  maxWidth: 350
