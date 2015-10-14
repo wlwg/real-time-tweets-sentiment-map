@@ -26,7 +26,8 @@ module.factory('socket', function($rootScope){
 module.factory('GoogleMap', function(){
     var mapOptions = {
 		center: {lat: 20, lng: 0},
-		zoom: 2
+		zoom: 2,
+		minZoom: 2
 	}
 	return new google.maps.Map($('#map-canvas')[0], mapOptions);
 });
