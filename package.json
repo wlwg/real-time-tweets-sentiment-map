@@ -7,10 +7,11 @@
     "start": "node server.js"
   },
   "author": "Weiliang(Will) Wang",
+  "repository": "",
   "license": "ISC",
   "dependencies": {
     "express": "*",
-    "twitter": "*",
+    "twit": "*",
     "socket.io": "*",
     "sentiment": "*"
   }
