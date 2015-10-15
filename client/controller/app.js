@@ -81,7 +81,7 @@ module.controller('MapController', function($scope, GoogleMap, socket){
 
 	      	var marker = new google.maps.Marker({
 	         	map: GoogleMap,
-	          	title: '',
+	          	title: '@' + tweet.user.name,
 	         	position: new google.maps.LatLng(tweet.coordinates.coordinates[1], tweet.coordinates.coordinates[0]),
 	          	draggable: false,
 	         	animation: google.maps.Animation.DROP,
@@ -91,10 +91,10 @@ module.controller('MapController', function($scope, GoogleMap, socket){
 	      	markers.push(marker);
 
 	      	var info = '<div class="row text-center tweet-info-window">'
-	      				+	'<div class="col-sm-2 text-center">' 
+	      				+	'<div class="col-md-2 text-center">' 
 	      				+		'<img class="img-responsive" src=' + tweet.user.profile_image_url + '></img>'
 	      				+	'</div>'
-	      				+	'<div class="col-sm-10 text-left">' 
+	      				+	'<div class="col-md-10 text-left">' 
 	      				+		'<p>' + '@' + tweet.user.name + '</p>'
 	      				+ 		'<p><strong>' + tweet.text + '</strong></p>'
 	      				+ 		'<p>' + tweet.created_at + '<br>';
