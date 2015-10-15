@@ -19,12 +19,35 @@ body {
 	max-width: 1400px; 
 }
 
-div#map-container{
-	padding-top: 5px;
+.marker-note{
+	margin-bottom: 20px
 }
 
+.pull-left{
+	padding-left: 0;
+}
+
+.pull-down{
+	padding-top: 200px;
+}
+
+.btn{
+	width: 80px;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: inherit;
+    transition: .3s;
+}
+
+div#map-container{
+	margin-top: 5px;
+}
 div#map-canvas{
+	display: block;
 	min-height: 600px;
+	height: auto;
 }
 
 .tweet-info-window{

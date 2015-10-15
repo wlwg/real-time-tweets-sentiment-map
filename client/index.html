@@ -29,50 +29,45 @@
 				</div>
 			</div>
 			<div class="row" ng-controller="MapController">
-				<div class="col-md-2 text-center">
-					<div class="row">
-						<div class="col-xs-12">
-							<img src="res/img/marker-green.png">
-							<h5>Positive Sentiment</h5>
-						</div>
+				<div class="col-md-2 text-muted text-center pull-down">
+					<div class="row marker-note">
+						<img src="res/img/marker-green.png">
+						<h5>Tweet Of Positive Sentiment</h5>
 					</div>
-					<div class="row">
-						<div class="col-xs-12">
-							<img src="res/img/marker-yellow.png">
-							<h5>Neutral Sentiment</h5>
-						</div>
+					<div class="row marker-note">
+						<img src="res/img/marker-yellow.png">
+						<h5>Tweet Of Neutral Sentiment</h5>
 					</div>
-					<div class="row">
-						<div class="col-xs-12">
-							<img src="res/img/marker-red.png">
-							<h5>Negative Sentiment</h5>
-						</div>
+					<div class="row marker-note">
+						<img src="res/img/marker-red.png">
+						<h5>Tweet Of Negative Sentiment</h5>
 					</div>
 				</div>
 				<div class="col-md-8">
 					<div class="row">
-						<div class="col-md-4 text-left">
+						<div class="col-md-4 text-left pull-left">
 							<div class="input-group"> 
 								<input class="form-control" type="text" placeholder="keyword" ng-model="keyword"/>
 								<span class="input-group-btn">
-									<button class="btn" type="submit" ng-click="RestartBtnClick()">Restart</button>
+									<button class="btn btn-info btn-outline" type="submit" ng-click="RestartBtnClick()">Restart</button>
 								</span>
 							</div>
 						</div>
-						<div class="col-md-2 text-left"> 
+						<div class="col-md-2 text-left pull-left"> 
 							<div class="input-group"> 
 								<span>
-									<button class="btn" type="submit" ng-click="StopBtnClick()">{{stopBtnValue}}</button>
+									<button class="btn btn-info btn-outline" type="submit" ng-click="StopBtnClick()">{{stopBtnValue}}</button>
 								</span>
 							</div>
-								
 						</div>
 					</div>
 					<div class="row text-center" id="map-container">
 						<div id="map-canvas"></div>
 					</div>
-					<div class="row text-muted" id="note">
-						<h4><em>Hint: try clicking the cute little dots to check the tweet info :)</em></h4>
+					<div class="row text-muted">
+						<h5>
+							<em>Hint: Click little markers to get tweet details.</em>
+						</h5>
 					</div>
 				</div>
 				<div class="col-md-2">

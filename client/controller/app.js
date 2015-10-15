@@ -29,7 +29,13 @@ module.factory('GoogleMap', function(){
 		zoom: 2,
 		minZoom: 2
 	}
-	return new google.maps.Map($('#map-canvas')[0], mapOptions);
+	var map = new google.maps.Map($('#map-canvas')[0], mapOptions);
+	google.maps.event.addDomListener(window, "resize", function() {
+		var center = map.getCenter();
+		google.maps.event.trigger(map, "resize");
+		map.setCenter(center); 
+	});
+	return map;
 });
 
 module.controller('MapController', function($scope, GoogleMap, socket){
