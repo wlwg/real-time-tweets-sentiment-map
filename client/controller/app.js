@@ -96,9 +96,13 @@ module.controller('MapController', function($scope, GoogleMap, socket){
 	      				+	'<div class="col-md-10 text-left">' 
 	      				+		'<p>' + '@' + tweet.user.name + '</p>'
 	      				+ 		'<p><strong>' + tweet.text + '</strong></p>'
-	      				+ 		'<p>' + tweet.created_at + '<br>';
-	      	if(tweet.place.name) info += tweet.place.name + ', ';
-	      	info += tweet.place.country + '</p></div></div>';
+	      				+ 		'<p>' + tweet.created_at + ;
+	      	if(tweet.place.name){
+	      		info += '<br>' 
+	      				+ tweet.place.name + ', ' 
+	      				+ tweet.place.country;
+	      	}
+	      	info += '</p></div></div>';
 
 	      	var infowindow = new google.maps.InfoWindow({
 	        	  content: info,
