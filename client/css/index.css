@@ -110,7 +110,7 @@ div#map-canvas{
 
 @media screen and (min-height: 701px){
 	div#map-canvas{
-		min-height: 650px;
+		min-height: 600px;
 	}
 }
 

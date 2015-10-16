@@ -28,17 +28,10 @@ module.factory('GoogleMap', function(){
 		center: {lat: 20, lng: 0},
 		zoom: 2
 	}
-	var map = new google.maps.Map($('#map-canvas')[0], mapOptions);
-	google.maps.event.addDomListener(window, "resize", function() {
-		var center = map.getCenter();
-		google.maps.event.trigger(map, "resize");
-		map.setCenter(center); 
-	});
-	return map;
+	return new google.maps.Map($('#map-canvas')[0], mapOptions);
 });
 
 module.controller('MapController', function($scope, GoogleMap, socket){
-	
 	var keyword = null;
 	var markers = [];
 	$scope.keyword = null;
