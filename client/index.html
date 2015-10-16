@@ -29,7 +29,7 @@
 				</div>
 			</div>
 			<div class="row" ng-controller="MapController">
-				<div class="col-md-2 text-muted text-center pull-down">
+				<div class="col-md-2 text-muted text-center" id="marker-note-group">
 					<div class="row marker-note">
 						<img src="res/img/marker-green.png">
 						<h5>Tweet of Positive Sentiment</h5>
@@ -45,17 +45,11 @@
 				</div>
 				<div class="col-md-8">
 					<div class="row">
-						<div class="col-md-4 text-left pull-left">
+						<div class="col-md-6 col-sm-12 text-left pull-left pull-right">
 							<div class="input-group"> 
 								<input class="form-control" type="text" placeholder="keyword" ng-model="keyword"/>
 								<span class="input-group-btn">
 									<button class="btn btn-info btn-outline" type="submit" ng-click="RestartBtnClick()">Restart</button>
-								</span>
-							</div>
-						</div>
-						<div class="col-md-2 text-left pull-left"> 
-							<div class="input-group"> 
-								<span>
 									<button class="btn btn-info btn-outline" type="submit" ng-click="StopBtnClick()">{{stopBtnValue}}</button>
 								</span>
 							</div>
@@ -70,10 +64,10 @@
 						</h5>
 					</div>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-2 side-area">
 					<h4>Twitter Trends</h4>
 					<div class="row">
-						<div class="col-xs-12 animate" ng-repeat="trend in trends">
+						<div class="animate" ng-repeat="trend in trends">
 							<a href="{{trend.url}}" target="_blank">{{trend.name}}</a>
 						</div>
 					</div>

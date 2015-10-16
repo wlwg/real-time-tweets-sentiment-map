@@ -26,8 +26,7 @@ module.factory('socket', function($rootScope){
 module.factory('GoogleMap', function(){
     var mapOptions = {
 		center: {lat: 20, lng: 0},
-		zoom: 2,
-		minZoom: 2
+		zoom: 2
 	}
 	var map = new google.maps.Map($('#map-canvas')[0], mapOptions);
 	google.maps.event.addDomListener(window, "resize", function() {

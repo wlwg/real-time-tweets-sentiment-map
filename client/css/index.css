@@ -7,6 +7,11 @@ body {
   margin-bottom: 90px;
 }
 
+.row{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 div#title{
 	margin-top: 20px;
 }
@@ -20,19 +25,15 @@ div#title{
 }
 .container { 
 	width: auto;
-	max-width: 1400px; 
-}
-
-.marker-note{
-	margin-bottom: 20px
+	max-width: 1500px;
 }
 
 .pull-left{
 	padding-left: 0;
 }
 
-.pull-down{
-	padding-top: 190px;
+.pull-right{
+	padding-right: 0;
 }
 
 .btn{
@@ -48,9 +49,9 @@ div#title{
 div#map-container{
 	margin-top: 5px;
 }
+
 div#map-canvas{
 	display: block;
-	min-height: 600px;
 	height: auto;
 }
 
@@ -59,6 +60,57 @@ div#map-canvas{
 	padding-right: 5px;
  	background-color: #f5f5f5;
     width: 99%;
+}
+
+@media screen and (min-width: 992px){
+	div#marker-note-group {
+	    padding-top: 50px;
+	}
+	.marker-note{
+		margin-bottom: 30px
+	}
+}
+
+@media screen and (max-width: 991px){
+	.marker-note{
+		margin-bottom: 0px;
+		display: block;
+	}
+	.side-area{
+		text-align: center;
+	}
+}
+
+@media screen and (max-height: 300px){
+	div#map-canvas{
+		min-height: 250px;
+	}
+}
+@media screen and (min-height: 301px) and (max-height: 400px){
+	div#map-canvas{
+		min-height: 280px;
+	}
+}
+@media screen and (min-height: 401px) and (max-height: 500px){
+	div#map-canvas{
+		min-height: 350px;
+	}
+}
+@media screen and (min-height: 501px) and (max-height: 600px){
+	div#map-canvas{
+		min-height: 450px;
+	}
+}
+@media screen and (min-height: 601px) and (max-height: 700px){
+	div#map-canvas{
+		min-height: 550px;
+	}
+}
+
+@media screen and (min-height: 701px){
+	div#map-canvas{
+		min-height: 650px;
+	}
 }
 
 .animate.ng-enter, 
