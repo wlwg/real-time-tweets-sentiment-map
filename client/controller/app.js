@@ -90,7 +90,7 @@ module.controller('MapController', function($scope, GoogleMap, socket){
 	      				+		'<p>' + '@' + tweet.user.name + '</p>'
 	      				+ 		'<p><strong>' + tweet.text + '</strong></p>'
 	      				+ 		'<p>' + tweet.created_at;
-	      	if(tweet.place.name){
+	      	if(tweet.place){
 	      		info += '<br>' 
 	      				+ tweet.place.name + ', ' 
 	      				+ tweet.place.country;
@@ -102,10 +102,7 @@ module.controller('MapController', function($scope, GoogleMap, socket){
 	        	  maxWidth: 350
 	      	});
 	      	google.maps.event.addListener(marker, 'click', function(){
-	        	if(infowindow.getMap() !== null) 
-	        		infowindow.close(); 
-	        	else 
-	        		infowindow.open(GoogleMap, marker);
+	        	infowindow.open(GoogleMap, marker);
 	      	});
       	}
 	});
