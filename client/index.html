@@ -68,10 +68,8 @@
 					<div class="row">
 						<h4>Twitter Trends</h4>
 					</div>
-					<div class="row">
-						<div class="col-md-12 animate" ng-repeat="trend in trends">
-							<a href="{{trend.url}}" target="_blank">{{trend.name}}</a>
-						</div>
+					<div class="row animate" ng-repeat="trend in trends">
+						<a href="{{trend.url}}" target="_blank">{{trend.name}}</a>
 					</div>
 				</div>
 			</div>
