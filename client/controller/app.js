@@ -96,7 +96,7 @@ module.controller('MapController', function($scope, GoogleMap, socket){
 	      				+	'<div class="col-md-10 text-left">' 
 	      				+		'<p>' + '@' + tweet.user.name + '</p>'
 	      				+ 		'<p><strong>' + tweet.text + '</strong></p>'
-	      				+ 		'<p>' + tweet.created_at + ;
+	      				+ 		'<p>' + tweet.created_at;
 	      	if(tweet.place.name){
 	      		info += '<br>' 
 	      				+ tweet.place.name + ', ' 
