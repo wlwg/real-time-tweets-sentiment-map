@@ -87,7 +87,8 @@ div#map-canvas{
 	}
 	.side-area{
 		text-align: center;
-		margin-bottom: 30px
+		margin-top: 10px;
+		margin-bottom: 20px
 	}
 	div#hint{
 		padding-left: 0px;
@@ -101,14 +102,9 @@ div#map-canvas{
 		font-size: 30px;
 	}
 }
-@media (max-width: 499px) and (min-width: 400px){
+@media (max-width: 499px){
 	h1 {
-		font-size: 25px;
-	}
-}
-@media (max-width: 399px){
-	h1{
-		font-size: 20px;
+		font-size: 26px;
 	}
 }
 
