@@ -24,9 +24,21 @@ module.factory('socket', function($rootScope){
 });
 
 module.factory('GoogleMap', function(){
+    
+    var mapZoom = 2;
+    var centerLng = -10;
+
+    if(screen.width < 550)
+    	mapZoom = 1;
+    
+    if(screen.width >= 550 && screen.width < 700)
+    	centerLng = -40;
+    if(screen.width < 350)
+    	centerLng = -30;
+
     var mapOptions = {
-		center: {lat: 20, lng: 0},
-		zoom: 2
+		center: {lat: 20, lng: centerLng},
+		zoom: mapZoom
 	}
 	return new google.maps.Map($('#map-canvas')[0], mapOptions);
 });
