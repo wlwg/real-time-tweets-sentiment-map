@@ -88,6 +88,9 @@ div#map-canvas{
 		text-align: center;
 		margin-bottom: 30px
 	}
+	div#hint{
+		padding-left: 0px;
+	}
 }
 
 @media screen and (max-height: 300px){
