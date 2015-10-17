@@ -70,6 +70,7 @@ div#map-canvas{
     width: 99%;
 }
 
+
 /*layout responsive*/
 @media (min-width: 992px){
 	div#marker-note-group {
@@ -79,7 +80,6 @@ div#map-canvas{
 		margin-bottom: 30px
 	}
 }
-
 @media (max-width: 991px){
 	.marker-note{
 		margin-bottom: 0px;
@@ -94,18 +94,24 @@ div#map-canvas{
 	}
 }
 
+
 /*title size responsive*/
 @media (max-width: 600px) and (min-width: 500px){
 	h1 {
 		font-size: 30px;
 	}
 }
-
-@media (max-width: 499px){
-	h1{
+@media (max-width: 499px) and (min-width: 400px){
+	h1 {
 		font-size: 25px;
 	}
 }
+@media (max-width: 399px){
+	h1{
+		font-size: 20px;
+	}
+}
+
 
 /*map height responsive*/
 @media (max-height: 300px){
@@ -118,7 +124,6 @@ div#map-canvas{
 		min-height: 280px;
 	}
 }
-
 @media (min-height: 401px) and (max-height: 500px){
 	div#map-canvas{
 		min-height: 350px;
@@ -134,12 +139,12 @@ div#map-canvas{
 		min-height: 350px;
 	}
 }
-
 @media (min-height: 601px) and (min-width: 551px){
 	div#map-canvas{
 		min-height: 550px;
 	}
 }
+
 
 .animate.ng-enter, 
 .animate.ng-leave { 
