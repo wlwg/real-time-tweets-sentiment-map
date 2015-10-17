@@ -28,10 +28,12 @@ module.factory('GoogleMap', function(){
     var mapZoom = 2;
     var centerLng = -10;
 
-    if(screen.width < 550)
+    //set zoon smaller on small screen
+    if(screen.width <= 550)
     	mapZoom = 1;
     
-    if(screen.width >= 550 && screen.width < 700)
+    //use different map center on different size of screens
+    if(screen.width > 550 && screen.width < 700)
     	centerLng = -40;
     if(screen.width < 350)
     	centerLng = -30;
