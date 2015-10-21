@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="css/index.css">
 
 		<script type="text/javascript" src="lib/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNc0dmlvo53X4djeek5mOLB3Q0ETqCg7w">
 		</script>
 		<script type="text/javascript" src="lib/angular.min.js"></script>
@@ -17,18 +18,19 @@
 		<script type="text/javascript" src="controller/app.js"></script>
 	</head>
 	<body ng-app="app">
-		<div class="container">
-			<div class="row" id="title">
-				<div class="col-md-12 text-center text-muted">
-					<h1>Real-time Tweets Sentiment Map</h1>
-				</div>
+		<div class="container" ng-controller="MapController">
+			<div class="row text-center text-muted" id="title">
+				<h1>Real-time Tweets Sentiment Map</h1>
+			</div>
+			<div class="row text-center text-muted warning" ng-if="showLimitMessage">
+				Oops... The server has temporarily reached the use limit of Twitter API. Please revisit it in 5 minutes.
 			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<hr>
 				</div>
 			</div>
-			<div class="row" ng-controller="MapController">
+			<div class="row">
 				<div class="col-md-2 text-muted text-center" id="marker-note-group">
 					<div class="row marker-note">
 						<img src="res/img/marker-green.png">

@@ -48,6 +48,7 @@ module.factory('GoogleMap', function(){
 module.controller('MapController', function($scope, GoogleMap, socket){
 	var keyword = null;
 	var markers = [];
+	$scope.showLimitMessage = false;
 	$scope.keyword = null;
 	$scope.stopBtnValue = 'Stop';
 	$scope.trends = [];
@@ -72,6 +73,7 @@ module.controller('MapController', function($scope, GoogleMap, socket){
 		socket.emit('get-trends');
 	});
 	socket.on('new-tweet', function(tweet){
+		$scope.showLimitMessage = false;
 		if($scope.stopBtnValue === 'Stop' &&
 			(!keyword || keyword.length === 0 
 				|| tweet.text.toLowerCase().indexOf(keyword.toLowerCase()) > -1))
@@ -123,5 +125,9 @@ module.controller('MapController', function($scope, GoogleMap, socket){
 
 	socket.on('new-trends', function(trends){
 		$scope.trends = trends;
+	});
+
+	socket.on('rate-limit', function(){
+		$scope.showLimitMessage = true;
 	});
 });

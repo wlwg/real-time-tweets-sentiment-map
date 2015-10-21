@@ -7,6 +7,11 @@ body {
   margin-bottom: 90px;
 }
 
+.warning{
+	color: #e3321a;
+	font-weight: bold;
+}
+
 .row{
 	padding-left: 10px;
 	padding-right: 10px;

@@ -80,6 +80,8 @@ var TwitterStreamService = function(server){
 
       	self.twitter_stream.on('limit', function(limitMessage) {
         	console.log(new Date() + ' - Twitter stream limit error: ' + limitMessage);
+        	socket.broadcast.emit("rate-limit");
+          	socket.emit('rate-limit');
       	});
 
       	self.twitter_stream.on('warning', function(warningMessage) {
