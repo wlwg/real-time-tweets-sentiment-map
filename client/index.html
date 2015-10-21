@@ -22,11 +22,14 @@
 			<div class="row text-center text-muted" id="title">
 				<h1>Real-time Tweets Sentiment Map</h1>
 			</div>
-			<div class="row text-center text-muted warning" ng-if="showLimitMessage">
-				Oops... The server has temporarily reached the use limit of Twitter API. Please revisit it in 5 minutes.
+			<div class="row" ng-if="showLimitMessage">
+				<div class="col-md-2"></div>
+				<div class="col-md-8 text-left text-muted warning">
+					Oops... The server has temporarily reached the use limit of Twitter API. Please revisit it in 5 minutes.
+				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-12 title-seperator">
 					<hr>
 				</div>
 			</div>

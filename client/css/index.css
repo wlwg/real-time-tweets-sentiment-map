@@ -7,6 +7,15 @@ body {
   margin-bottom: 90px;
 }
 
+div#title{
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.title-seperator hr{
+	margin-top: 0px;
+}
+
 .warning{
 	color: #e3321a;
 	font-weight: bold;
@@ -15,14 +24,6 @@ body {
 .row{
 	padding-left: 10px;
 	padding-right: 10px;
-}
-
-div#title{
-	margin-top: 20px;
-}
-
-div#title h2{
-	margin-bottom: 0px;
 }
 
 .footer {
