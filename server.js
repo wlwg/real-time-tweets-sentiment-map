@@ -67,7 +67,9 @@ var TwitterStreamService = function(server){
          });
 
       	self.twitter_stream.on('error', function(error) {
-      		console.log(new Date() + ' - Twitter stream error: ' + error.message);
+      		console.log(new Date() + ' - Twitter stream error: %j', error);
+      		socket.broadcast.emit("stream-error");
+          	socket.emit('stream-error');
 		});
 
       	self.twitter_stream.on('connect', function(request) {
@@ -79,13 +81,13 @@ var TwitterStreamService = function(server){
 		});
 
       	self.twitter_stream.on('limit', function(limitMessage) {
-        	console.log(new Date() + ' - Twitter stream limit error: ' + limitMessage);
-        	socket.broadcast.emit("rate-limit");
-          	socket.emit('rate-limit');
+        	console.log(new Date() + ' - Twitter stream limit error: %j', limitMessage);
+        	socket.broadcast.emit("stream-limit");
+          	socket.emit('stream-limit');
       	});
 
       	self.twitter_stream.on('warning', function(warningMessage) {
-       	 	console.log(new Date() + ' - Twitter stream warning: ' + warningMessage);
+       	 	console.log(new Date() + ' - Twitter stream warning: %j', warningMessage);
       	});
 
       	self.twitter_stream.on('disconnect', function(disconnectMessage) {

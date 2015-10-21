@@ -127,7 +127,7 @@ module.controller('MapController', function($scope, GoogleMap, socket){
 		$scope.trends = trends;
 	});
 
-	socket.on('rate-limit', function(){
+	socket.on('stream-error', function(){
 		$scope.showLimitMessage = true;
 	});
 });
