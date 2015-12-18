@@ -6,15 +6,15 @@ var sentiment = require('sentiment');
 
 var TwitterStreamService = function(server){
 	var self = this;
-	self.io = socketio(server);
-	self.clientCount = 0;
+	var io = socketio(server);
+	var clientCount = 0;
 
-	self.twitter_stream = null;
-	self.twitter_trends = {
+	var twitter_stream = null;
+	var twitter_trends = {
 		'created_at': null,
 		'trends': null
 	};
-	self.twitter_api = 
+	var twitter_api = 
 			new twitter({
 				consumer_key: process.env.OPENSHIFT_APP_TWITTER_CONSUMER_KEY,
 				consumer_secret: process.env.OPENSHIFT_APP_TWITTER_CONSUMER_SECRET,
@@ -22,42 +22,42 @@ var TwitterStreamService = function(server){
 				access_token_secret: process.env.OPENSHIFT_APP_TWITTER_ACCESS_TOKEN_SECRET
 			});
 
-	self.SetupSocketCallback = function(){
-		self.io.on('connection', function (socket) {
+	var SetupSocketCallback = function(){
+		io.on('connection', function (socket) {
 			console.log(new Date() + ' - A new client is connected.');
-			if(self.twitter_stream !== null && self.clientCount === 0){
-				self.twitter_stream.start();
+			if(twitter_stream !== null && clientCount === 0){
+				twitter_stream.start();
 				console.log(new Date() + ' - Restarted streaming.');
 			}
-			self.clientCount ++;
+			clientCount ++;
 			socket.emit("connected");
 
 		  	socket.on('start-streaming', function() {
 		  		console.log(new Date() + ' - Received new event <start-streaming>.');
-		  		if(self.twitter_stream === null)
-			    	self.SetupTwitterStreamCallback(socket);
+		  		if(twitter_stream === null)
+			    	SetupTwitterStreamCallback(socket);
 		  	});
 		  	socket.on('get-trends', function(){
 		  		console.log(new Date() + ' - Received new event <get-trend>.');
-		  		self.GetTwitterTrends(socket);
+		  		GetTwitterTrends(socket);
 		  	});
 		  	socket.on('disconnect', function() {
 				console.log(new Date() + ' - A client is disconnected');
-				self.clientCount --;
-				if(self.clientCount < 1){
-					self.twitter_stream.stop();
+				clientCount --;
+				if(clientCount < 1){
+					twitter_stream.stop();
 					console.log(new Date() + ' - All clients are disconnected. Stopped streaming.');
 				}
 			});
 		});
 	}
 
-	self.SetupTwitterStreamCallback = function(socket){
-      	self.twitter_stream = self.twitter_api.stream(
+	SetupTwitterStreamCallback = function(socket){
+      	twitter_stream = twitter_api.stream(
       		'statuses/filter', 
       		{'locations':'-180,-90,180,90', 'language':'en'});
 
-      	self.twitter_stream.on('tweet', function(tweet) {
+      	twitter_stream.on('tweet', function(tweet) {
       		//console.log(new Date() + ' - Received new tweet.');
           	if (tweet.coordinates && tweet.coordinates !== null){
           		tweet.sentiment = sentiment(tweet.text);
@@ -66,41 +66,41 @@ var TwitterStreamService = function(server){
           	}
          });
 
-      	self.twitter_stream.on('error', function(error) {
+      	twitter_stream.on('error', function(error) {
       		console.log(new Date() + ' - Twitter stream error: %j', error);
       		socket.broadcast.emit("stream-error");
           	socket.emit('stream-error');
 		});
 
-      	self.twitter_stream.on('connect', function(request) {
+      	twitter_stream.on('connect', function(request) {
 		    console.log(new Date() + ' - Connected to Twitter stream API.');
 		});
 
-		self.twitter_stream.on('reconnect', function (request, response, connectInterval) {
+		twitter_stream.on('reconnect', function (request, response, connectInterval) {
 		  	console.log(new Date() + ' - Trying to reconnect to Twitter stream API in ' + connectInterval + ' ms.');
 		});
 
-      	self.twitter_stream.on('limit', function(limitMessage) {
+      	twitter_stream.on('limit', function(limitMessage) {
         	console.log(new Date() + ' - Twitter stream limit error: %j', limitMessage);
         	socket.broadcast.emit("stream-limit");
           	socket.emit('stream-limit');
       	});
 
-      	self.twitter_stream.on('warning', function(warningMessage) {
+      	twitter_stream.on('warning', function(warningMessage) {
        	 	console.log(new Date() + ' - Twitter stream warning: %j', warningMessage);
       	});
 
-      	self.twitter_stream.on('disconnect', function(disconnectMessage) {
+      	twitter_stream.on('disconnect', function(disconnectMessage) {
         	console.log(new Date() + ' - Disconnected to Twitter stream API.');
       	});
 
       	console.log(new Date() + " - Initialized twitter streaming.");
 	}
 
-	self.GetTwitterTrends = function(socket){
-		if(self.twitter_trends.trends === null || (new Date() - self.twitter_trends.created_at) > 60000){
+	GetTwitterTrends = function(socket){
+		if(twitter_trends.trends === null || (new Date() - twitter_trends.created_at) > 60000){
 			console.log(new Date() + ' - Retrieving twitter trends.');
-			self.twitter_api.get(
+			twitter_api.get(
 				'trends/place',
 				{'id' : 1},
 				function(error, trends, response){
@@ -110,21 +110,23 @@ var TwitterStreamService = function(server){
 					}
 					console.log(new Date() + ' - Received twitter trends.');
 
-					self.twitter_trends.created_at = new Date();
-					self.twitter_trends.trends = trends[0].trends;
+					twitter_trends.created_at = new Date();
+					twitter_trends.trends = trends[0].trends;
 					console.log(new Date() + ' - Updated twitter trends cache.');
 
-					socket.broadcast.emit("new-trends", self.twitter_trends.trends);
-			        socket.emit('new-trends', self.twitter_trends.trends);
+					socket.broadcast.emit("new-trends", twitter_trends.trends);
+			        socket.emit('new-trends', twitter_trends.trends);
 				});
 		}
 		else{
-			socket.broadcast.emit("new-trends", self.twitter_trends.trends);
-			socket.emit('new-trends', self.twitter_trends.trends);
+			socket.broadcast.emit("new-trends", twitter_trends.trends);
+			socket.emit('new-trends', twitter_trends.trends);
 		}
 	}
 
-	self.SetupSocketCallback();
+	self.StartService = function(){
+		SetupSocketCallback();
+	}
 }
 
 var Application = function(){
@@ -134,18 +136,23 @@ var Application = function(){
 		self.ip        = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
         self.port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
-		self.app = express();
-		self.app.use(express.static(__dirname + '/client'));
+		var app = express();
+		app.use(express.static(__dirname + '/client'));
+		self.server = http.Server(app);
 
-		self.server = http.Server(self.app);
-		self.socketService = new TwitterStreamService(self.server);
-	}
+		startTwitterStreamService();
+	};
+
+	var startTwitterStreamService = function(){
+		var twitterStreamService = new TwitterStreamService(self.server);
+		twitterStreamService.StartService();
+	};
 
 	self.Start = function(){
 		self.server.listen(self.port, self.ip, function() {
             console.log(new Date() + ' - Server started. Listening on ' + self.ip + ':' + self.port);
         });
-	}
+	};
 }
 
 var app = new Application();
